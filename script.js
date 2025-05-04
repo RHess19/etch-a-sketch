@@ -14,7 +14,7 @@ drawStatus.style.color = "red";
 function generateGrid()
 {
 
-    let gridItemSize = ((gridContainerSize)/GRID_DIMENSIONS)-2;
+    let gridItemSize = ((gridContainerSize)/GRID_DIMENSIONS)-2; // Subtract border amount to keep within bounds of container
     gridItemSize = gridItemSize + "px";
 
     for (let i = 0; i < GRID_DIMENSIONS*GRID_DIMENSIONS; i++)
@@ -28,6 +28,8 @@ function generateGrid()
     }
 }
 
+
+// Clear the grid from the screen
 function removeGrid()
 {
     while(gridContainer.firstChild)
@@ -51,6 +53,8 @@ grid.addEventListener("mouseover", (event) => {
     }
 });
 
+
+/****************** EVENT LISTENERS *****************/
 
 // Button event listener
 const sizeButton = document.querySelector("#change-size-button");
