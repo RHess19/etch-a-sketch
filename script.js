@@ -8,6 +8,10 @@ const drawStatus = document.querySelector(".draw-status");
 drawStatus.textContent = "Drawing disabled. Click to enable.";
 drawStatus.style.color = "red";
 
+const standardRadioButton = document.querySelector("#standard");
+const randomRadioButton = document.querySelector("#random");
+//const rainbowRadioButton = document.querySelector("#rainbow");
+
 // Generate grid
 // Create all divs to make up the grid
 // Set grid item sizes based on gridContainerSize, so the container should always be the same size
@@ -39,22 +43,34 @@ function removeGrid()
 }
 
 
+
+
+/****************** EVENT LISTENERS *****************/
+
 // Add hover event to all grid items with event delegation
 const grid = document.querySelector(".grid-container");
 
 grid.addEventListener("mouseover", (event) => {
-    if(event.target.className === "grid-container") // Do not trigger the event on the parent container - only children
+    const target = event.target;
+
+    if(target.className === "grid-container") // Do not trigger the event on the parent container - only children
     {
         return;
     }
 
-    if(enableDraw){
-        event.target.classList.add("hover");
+    if(enableDraw && standardRadioButton.checked) {
+        target.classList.add("hover");
+    } else if(enableDraw && randomRadioButton.checked) {
+        if(!target.style.backgroundColor && target.className != "grid-item hover") // Prevent overwriting existing colors
+        {
+            console.log(target);
+            let randomColor = Math.floor(Math.random()*16777215).toString(16);
+            randomColor = '#' + randomColor;
+            target.style.backgroundColor = randomColor;
+        }
     }
 });
 
-
-/****************** EVENT LISTENERS *****************/
 
 // Button event listener
 const sizeButton = document.querySelector("#change-size-button");
